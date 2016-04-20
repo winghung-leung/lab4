@@ -61,13 +61,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             LatLng prevLoc;
             Marker mark;
-            boolean isLast = true;
 
             @Override
             public void onLocationChanged(Location location)
             {
                 LatLng curLoc = new LatLng(location.getLatitude(), location.getLongitude());
-//                isLast = false;
+
                 if (mark != null)
                 {
                     mark.remove();
@@ -76,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .add(prevLoc, curLoc).width(5).color(Color.RED));
                 }
                 mark = mMap.addMarker(new MarkerOptions().position(curLoc).title("update path"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 15.0f));
 
                 prevLoc = curLoc;
             }
